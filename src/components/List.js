@@ -1,18 +1,23 @@
 import Article from "./Article";
+import { ContentWrapper } from "./ContentWrapper";
 import Video from "./Video";
 
 export default function List({ list }) {
   return list.map(item => {
+    let content;
+
     switch (item.type) {
       case 'article':
-        return (
-          <Article {...item} />
-        );
-
+        content = <Article {...item} />;
+        break;
       default:
-        return (
-          <Video {...item} />
-        );
+        content = <Video {...item} />;
     }
+
+    return (
+      <ContentWrapper views={item.views}>
+        {content}
+      </ContentWrapper>
+    );
   });
 }
